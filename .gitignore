@@ -1,3 +1,5 @@
 *.docx
 Complete_File_Checklist.md
 Groq_API_Quick_Reference.md
+.venv
+.env
