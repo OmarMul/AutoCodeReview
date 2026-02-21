@@ -277,7 +277,7 @@ def build_code_analysis_prompt(code: str, language: str, file_name: str):
     return render_template(CODE_ANALYSIS_TEMPLATE, code=code, language=language, file_name=file_name)
 
 def build_security_analysis_prompt(code: str, language: str, file_name: str):
-    return render_template(SECURITY_ANALYSIS_TEMPLATE, code=code, language=language, file_name=file_name)
+    return render_template(SECURITY_REVIEW_TEMPLATE, code=code, language=language, file_name=file_name)
 
 def build_performance_analysis_prompt(code: str, language: str, file_name: str):
     return render_template(PERFORMANCE_TEMPLATE, code=code, language=language, file_name=file_name)
