@@ -23,7 +23,7 @@ LANGUAGE_MAP = {
     ".c": "c",
     ".h": "c",
     ".cpp": "cpp",
-    ".hpp": "cpp",
+    ".hpp": "hpp",
     ".rs": "rust",
     ".rb": "ruby",
     ".php": "php",
