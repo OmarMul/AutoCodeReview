@@ -29,6 +29,7 @@ class ChangedFile:
     total_additions: int
     total_deletions: int
 
+    @property
     def changed_line_numbers(self) -> Set[int]:
         """Returns the set of changed line numbers"""
         changed = set()
@@ -36,6 +37,7 @@ class ChangedFile:
             changed.add(line.line_number)
         return changed
 
+    @property
     def get_context_lines(self, line_number: int, context_lines: int = 3) -> tuple:
         """Get line range around a changed line for context"""
         start = max(1, line_number - context_lines)
@@ -51,15 +53,12 @@ class DiffResult:
     total_additions: int
     total_deletions: int
 
-
+    @property
     def get_python_files(self) -> List[ChangedFile]:
         """Get only python files"""
         return [file for file in self.files if file.filename.endswith(".py")]
 
-    def get_javascript_files(self) ->List[ChangedFile]:
-            """Get only javascript files"""
-            return [file for file in self.files if file.filename.endswith(('.js', '.jsx', '.ts', '.tsx'))]
-
+    @property
     def get_file_by_name(self, filename: str) -> Optional[ChangedFile]:
             """Get a file by name"""
             for file in self.files:

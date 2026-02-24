@@ -2,6 +2,7 @@ import ast
 from src.utils.logger import get_logger
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass, field
+from src.utils.cache import cache_parse_result
 
 logger = get_logger(__name__)
 
@@ -49,6 +50,7 @@ class ParseResult:
 
 class PythonParser:
     """Parse Python files"""
+    @cache_parse_result()
     def parse(self, code: str, filename: str = "<string>") -> ParseResult:
         """
         Parse Python code and extract structure.

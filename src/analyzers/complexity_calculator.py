@@ -9,6 +9,7 @@ from dataclasses import dataclass
 from radon.complexity import cc_visit
 from radon.metrics import mi_visit, mi_parameters
 from radon.raw import analyze
+from src.utils.cache import cache_complexity_result
 
 logger = logging.getLogger(__name__)
 
@@ -62,6 +63,7 @@ class ComplexityCalculator:
     THRESHOLD_HIGH = 20    # D-E: Complex
     # F: Very complex (>20)
     
+    @cache_complexity_result()
     def calculate(self, code: str, filename: str = "<string>") -> FileComplexity:
         """
         Calculate complexity metrics for code.

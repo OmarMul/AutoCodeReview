@@ -17,6 +17,15 @@ from src.analyzers.security_scanner import (
     Confidence
 )
 
+from src.analyzers.pipeline import (
+    AnalysisPipeline,
+    FileAnalysis,
+    FunctionAnalysis,
+    AnalysisBatchResult,
+    AnalysisStatus,
+    AnalysisProgress
+)
+
 __all__ = [
     # Complexity
     "ComplexityCalculator",
@@ -30,4 +39,12 @@ __all__ = [
     "SecurityMetrics",
     "Severity",
     "Confidence",
+    
+    # Pipeline
+    "AnalysisPipeline",
+    "FileAnalysis",
+    "FunctionAnalysis",
+    "AnalysisBatchResult",
+    "AnalysisStatus",
+    "AnalysisProgress",
 ]

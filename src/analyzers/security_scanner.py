@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from enum import Enum
 from src.utils.logger import get_logger
+from src.utils.cache import cache_analysis_result
 
 logger = get_logger(__name__)
 
@@ -342,6 +343,7 @@ class SecurityScanner:
         except Exception:
             return "unknown"
 
+    @cache_analysis_result()
     def scan(
         self, code: str,
         filename: str = "code.py",
