@@ -6,12 +6,13 @@ from .common import BaseSchema
 
 #Agent type enum
 class AgentType(str, Enum):
-    code_analyzer = "code_analyzer"
-    security = "security"
-    performance = "performance"
-    documentation = "documentation"
-    test = "test"
-    style = "style"
+    """Types of specialized agents."""
+    CODE_ANALYZER = "code_analyzer"
+    SECURITY = "security"
+    PERFORMANCE = "performance"
+    DOCUMENTATION = "documentation"
+    TEST = "test"
+    STYLE = "style"
 
 #Agent message model
 class AgentMessage(BaseSchema):

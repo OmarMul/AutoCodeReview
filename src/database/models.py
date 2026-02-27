@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text, Float
 from sqlalchemy.orm import relationship
 from datetime import datetime
-from session import Base
+from src.database.session import Base
 
 # The Review order model
 class Review(Base):

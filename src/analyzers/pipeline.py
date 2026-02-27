@@ -124,7 +124,7 @@ class FileAnalysis:
     """Complete analysis for a single file."""
     filename: str
     language: str = "python"
-    
+    source_code: str = ""
     # Raw results
     parse_result: Optional[ParseResult] = None
     complexity_result: Optional[FileComplexity] = None
@@ -349,7 +349,7 @@ class AnalysisPipeline:
                 security_result=security_result,
                 changed_lines=changed_lines
             )
-
+            file_analysis.source_code = code
             file_analysis.analysis_time = time.time() - start_time
             
             #complete
@@ -465,7 +465,7 @@ class AnalysisPipeline:
         logger.info("Analyzing pull request changes")
 
         #parse diff
-        diff_result = self.diff_parser.parse(diff_text)
+        diff_result = self.diff_parser.parse_diff(diff_text)
         python_files = diff_result.get_python_files()
 
         if not python_files:

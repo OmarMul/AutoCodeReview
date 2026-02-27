@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import select, func
 
-from session import Base
+from src.database.session import Base
 
 ModelType = TypeVar("ModelType", bound=Base)
 

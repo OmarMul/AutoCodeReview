@@ -337,7 +337,7 @@ class SecurityScanner:
                 text=True,
                 timeout=5
             )
-            # Output format: "bandit 1.7.10"
+            # Output format: "bandit"
             version = result.stdout.strip().split()[-1] if result.stdout else "unknown"
             return version
         except Exception:

@@ -1,0 +1,265 @@
+# Style Rules Configuration for Python Code Review
+# Based on PEP 8 and Modern Python Best Practices
+
+style_guide: "PEP 8"
+python_version: "3.10+"
+
+# Naming Conventions
+naming:
+  functions:
+    pattern: "snake_case"
+    description: "Function names should be lowercase with underscores"
+    examples:
+      good: ["calculate_total", "get_user_data", "is_valid"]
+      bad: ["calculateTotal", "GetUserData", "IsValid"]
+
+  classes:
+    pattern: "PascalCase"
+    description: "Class names should use CapWords convention"
+    examples:
+      good: ["UserAccount", "DataProcessor", "HTTPClient"]
+      bad: ["user_account", "dataProcessor", "http_client"]
+
+  constants:
+    pattern: "UPPER_CASE"
+    description: "Constants should be uppercase with underscores"
+    examples:
+      good: ["MAX_CONNECTIONS", "API_KEY", "DEFAULT_TIMEOUT"]
+      bad: ["maxConnections", "ApiKey", "default_timeout"]
+
+  private:
+    pattern: "_leading_underscore"
+    description: "Private methods/variables should have leading underscore"
+    examples:
+      good: ["_internal_method", "_cache_data"]
+      bad: ["internalMethod", "cache_data"]
+
+# Code Formatting
+formatting:
+  line_length:
+    max: 88 # Black default
+    recommended: 79 # PEP 8
+    description: "Maximum line length"
+
+  indentation:
+    spaces: 4
+    use_tabs: false
+    description: "Use 4 spaces for indentation, never tabs"
+
+  blank_lines:
+    top_level: 2
+    methods: 1
+    description: "2 blank lines between top-level definitions, 1 between methods"
+
+  whitespace:
+    - "No trailing whitespace"
+    - "Spaces around operators"
+    - "No space before comma, one after"
+    - "No space inside brackets/parens"
+
+# Import Organization
+imports:
+  order:
+    - "Standard library imports"
+    - "Related third-party imports"
+    - "Local application/library imports"
+
+  sorting: "alphabetical"
+  grouping: true
+  blank_lines_between_groups: 1
+
+  examples:
+    good: |
+      import os
+      import sys
+
+      import numpy as np
+      import pandas as pd
+
+      from myapp import models
+      from myapp.utils import helpers
+
+    bad: |
+      from myapp import models
+      import numpy as np
+      import os
+      import pandas as pd
+      from myapp.utils import helpers
+
+# Type Hints (PEP 484)
+type_hints:
+  enabled: true
+  required_for:
+    - "Public API functions"
+    - "Complex functions (complexity > 5)"
+    - "Functions with multiple parameters"
+
+  modern_syntax: true # Use list[int] instead of List[int] (Python 3.9+)
+
+  examples:
+    good:
+      - "def calculate(x: int, y: int) -> int:"
+      - "def process(data: list[str]) -> dict[str, Any]:"
+    bad:
+      - "def calculate(x, y):" # No type hints
+      - "def process(data: List[str]) -> Dict[str, Any]:" # Old syntax
+
+# String Formatting
+strings:
+  preferred: "f-strings"
+  alternatives:
+    - ".format()"
+  avoid:
+    - "% formatting"
+    - "String concatenation with +"
+
+  examples:
+    good: 'f"Hello, {name}!"'
+    avoid: '"Hello, " + name + "!"'
+
+# Modern Python Features (3.10+)
+modern_features:
+  use:
+    - "dataclasses for data containers"
+    - "pathlib instead of os.path"
+    - "match/case for complex conditionals (3.10+)"
+    - "Union types with | (3.10+)"
+    - "Type hints with new syntax"
+
+  examples:
+    dataclass: |
+      from dataclasses import dataclass
+
+      @dataclass
+      class User:
+          name: str
+          age: int
+
+    pathlib: |
+      from pathlib import Path
+
+      file_path = Path("data/file.txt")
+      content = file_path.read_text()
+
+    match_case: |
+      match status:
+          case 200:
+              return "OK"
+          case 404:
+              return "Not Found"
+          case _:
+              return "Unknown"
+
+    union_types: |
+      # Python 3.10+
+      def process(data: str | None) -> int | float:
+          ...
+
+# Code Smells to Avoid
+avoid:
+  - name: "Mutable default arguments"
+    example_bad: "def func(items=[]):"
+    example_good: "def func(items=None): items = items or []"
+
+  - name: "Bare except clauses"
+    example_bad: "try: ... except:"
+    example_good: "try: ... except Exception as e:"
+
+  - name: "Global variables"
+    description: "Minimize use of global variables"
+
+  - name: "Magic numbers"
+    example_bad: "if age > 18:"
+    example_good: "MIN_AGE = 18; if age > MIN_AGE:"
+
+# Documentation
+documentation:
+  docstring_style: "Google"
+  required_for:
+    - "All public functions"
+    - "All classes"
+    - "Complex functions (complexity > 5)"
+
+  include:
+    - "One-line summary"
+    - "Parameter descriptions"
+    - "Return value description"
+    - "Raised exceptions"
+    - "Usage examples for complex functions"
+
+  example: |
+    def calculate_total(items: list[float], tax_rate: float = 0.1) -> float:
+        """Calculate the total price including tax.
+        
+        Args:
+            items: List of item prices
+            tax_rate: Tax rate as decimal (default: 0.1 for 10%)
+        
+        Returns:
+            Total price with tax applied
+        
+        Raises:
+            ValueError: If tax_rate is negative
+        
+        Example:
+            >>> calculate_total([10.0, 20.0], 0.15)
+            34.5
+        """
+        if tax_rate < 0:
+            raise ValueError("Tax rate cannot be negative")
+        subtotal = sum(items)
+        return subtotal * (1 + tax_rate)
+
+# Auto-Fix Capabilities
+auto_fix:
+  enabled:
+    - "Add missing whitespace"
+    - "Remove trailing whitespace"
+    - "Fix import order"
+    - "Convert to f-strings"
+    - "Add type hints (basic)"
+
+  disabled:
+    - "Rename variables/functions" # Requires context
+    - "Refactor complex logic" # Requires understanding
+    - "Add docstrings" # Requires domain knowledge
+
+# Severity Levels
+severity:
+  critical:
+    - "Syntax errors"
+    - "Security issues"
+
+  high:
+    - "PEP 8 violations affecting readability"
+    - "Missing type hints in public API"
+
+  medium:
+    - "Naming convention violations"
+    - "Import organization issues"
+
+  low:
+    - "Line length violations"
+    - "Missing docstrings for simple functions"
+    - "Style preference issues"
+
+# Tools Integration
+tools:
+  black:
+    enabled: true
+    line_length: 88
+
+  isort:
+    enabled: true
+    profile: "black"
+
+  flake8:
+    enabled: true
+    max_line_length: 88
+    ignore:
+      - "E203" # Whitespace before ':' (conflicts with Black)
+      - "W503" # Line break before binary operator
+
+  mypy:
+    enabled: true
+    strict: false
