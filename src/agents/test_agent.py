@@ -300,7 +300,7 @@ class TestAgent(BaseAgent):
         
         return edge_cases[:3]  # Return top 3 most relevant
     
-    def _generate_test_suggestions(
+    async def _generate_test_suggestions(
         self,
         file_analysis: FileAnalysis,
         functions_needing_tests: List[FunctionAnalysis]

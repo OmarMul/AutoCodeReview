@@ -247,12 +247,20 @@ def cache_by_hash(cache: Cache, ttl: Optional[float] = None):
     def key_func(*args, **kwargs):
         from src.utils.file_handler import calculate_hash
         
-        # First argument should be the content
-        if args:
+        # Determine the content argument.
+        # If it's a bound method, args[0] is 'self', so 'code' is args[1]
+        content = None
+        if 'code' in kwargs:
+            content = kwargs['code']
+        elif len(args) > 1 and hasattr(args[0], '__class__') and type(args[0]).__name__ == "PythonParser":
+            content = args[1]
+        elif args:
             content = args[0]
+            
+        if content is not None:
             content_hash = calculate_hash(content)
             # Include other args in key
-            other_args = str(args[1:]) + str(kwargs)
+            other_args = str(args) + str(kwargs)
             return f"hash:{content_hash}:{other_args}"
         return str(args) + str(kwargs)
     

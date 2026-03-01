@@ -18,7 +18,7 @@ from src.agents.base_agent import (
 )
 from src.analyzers.pipeline import FileAnalysis, FunctionAnalysis
 from src.llm.groq_client import GroqClient
-from src.agents.prompts import (
+from src.llm.prompt_templates import (
     get_style_agent_system_prompt,
     build_style_check_prompt
 )

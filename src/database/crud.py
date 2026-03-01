@@ -89,10 +89,9 @@ class CRUDBase(Generic[ModelType]):
             db.rollback()
             raise e
 
-from models import Review, ReviewFile, Issue, Metrics, Suggestion
+from .models import UploadedFile, Issue, Metrics, Suggestion
 
-review_crud = CRUDBase(Review)
-review_file_crud = CRUDBase(ReviewFile)
+uploaded_file_crud = CRUDBase(UploadedFile)
 issue_crud = CRUDBase(Issue)
 metric_crud = CRUDBase(Metrics)
 suggestion_crud = CRUDBase(Suggestion)

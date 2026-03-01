@@ -27,9 +27,7 @@ __all__ = [
     "AgentMessage",
     "AgentSuggestion",
     "MessageType",
-    
-    # Orchestrator
-    "AgentOrchestrator",
+
     
     # Specialized Agents
     "CodeAnalyzerAgent",
